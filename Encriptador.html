@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title> Encriptador </title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="Encriptador.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+
+    </head> 
+    <header>
+      <div class="encabezado">
+        <h1><img class="Logo" src="Imagenes/logo.png" alt="Logo 
+      de Alura"></h1>
+      </div>
+   </header>
+  <div>
+    <body>
+        <section>
+            <div class="rectangulo" id="Rec1">
+                <div class="inner-rec" id="out">
+                    <img class="muñeco" src="Imagenes/Muñeco.png">
+                    <title class="piepic">Ningún mensaje fue encontrado</title>
+                        <h1>Ingresa el texto que desees encriptar o desencriptar.</h1>    
+                </div>
+                <h2 id="salida"></h2>
+                <button class="botton2" id="B2">Copiar</button>
+            </div>  
+        </section>
+        <section>
+             <textarea autofocus cols="50" rows="23" id="mensaje" class="textbox" placeholder="Ingrese el texto aqui"></textarea>
+             <div class="bottons">
+
+                <button class="botton0" id="B0">Encriptar</button><button class="botton1" id="B1">Desencriptar</button>
+                <span class="botton-txt">&#9733 Solo letras minúsculas y sin acentos</span>
+             </div>
+       </section>
+    </body>
+  </div>  
+    <footer>
+        <a href="https://www.linkedin.com/in/andre-sanchez-28sc/" target="_blank">By Andre Sanchez</a>
+    </footer>
+</html>
+<script>
+const myTextarea = document.getElementById("mensaje");
+const myButton = document.getElementById("B0");
+const miDiv = document.getElementById('out');
+const miDiv1 = document.getElementById("Rec1")
+var resultadoTexto = document.getElementById("salida");
+const myButton2 = document.getElementById("B1")
+const texto = document.getElementById("salida");
+const btn = document.getElementById("B2");
+
+let contenido = '';
+//Funcionalidad del boton encriptar
+myButton.addEventListener('click', function() {
+ //cambio el cotenido pre-output
+    contenido = myTextarea.value;
+ if (miDiv.classList.contains('inner-rec') & contenido.length !== 0 ) { //no se borra si el imput esta vacio
+    miDiv.classList.remove('inner-rec'); //cambia el aspecto del panel lateral
+    miDiv.classList.add('salitext');
+    miDiv1.classList.remove("rectangulo");//rectangulo para mobile
+    miDiv1.classList.add("rectangulomob");
+
+    document.getElementById("B2").style.display = "block";
+  } 
+    var codificado = contenido.replaceAll("e","enter").replaceAll("i","imes").replaceAll("a","ai").replaceAll("o","ober").replaceAll("u","ufat");
+    console.log(codificado); // el orden es esencial para evitar sobrecodificacion
+    resultadoTexto.textContent = codificado;
+    
+  }
+  )
+
+ //funcionalidad del otro boton(desencriptar)
+myButton2.addEventListener('click', function() {
+ //cambio el cotenido pre-output
+    contenido = myTextarea.value;
+ if (miDiv.classList.contains('inner-rec') & contenido.length !== 0 ) { //no se borra si el imput esta vacio
+    miDiv.classList.remove('inner-rec'); //quita el old y pone el nuevo
+    miDiv.classList.add('salitext')
+    miDiv1.classList.remove("rectangulo");//rectangulo para mobile
+    miDiv1.classList.add("rectangulomob");
+
+    document.getElementById("B2").style.display = "block";
+  } 
+  //var codificado = array.map(function(x){
+    var codificado = contenido.replaceAll("enter","e").replaceAll("imes","i").replaceAll("ai","a").replaceAll("ober","o").replaceAll("ufat","u");
+    console.log(codificado);
+    resultadoTexto.textContent = codificado;
+  }
+  )
+;
+btn.addEventListener("click", function() {
+  navigator.clipboard.writeText(texto.textContent)
+    .then(function() {
+      console.log("Texto copiado al clipboard");
+    })
+    .catch(function(error) {
+      console.error("Error al copiar texto: ", error);
+    });
+});
+
+</script>
